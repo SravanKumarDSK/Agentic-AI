@@ -1,12 +1,29 @@
 
 import streamlit as st
+import pandas as pd
+import numpy as np
 
-st.header("Select a Number")
+st.title("My first Streamlit App")
+st.write("This is a simple app to demonstrate the basic functinalities at Streamlit.")
+st.sidebar.header("User input features")
+user_name=st.sidebar.text_input("What is your name?","Streamlit User")
+age=st.sidebar.slider("Select your age",0,100,25)
+favorite_color=st.sidebar.selectbox(" What is your favorite color?",["Blue","Green","Red","Yellow"])
+st.header(f"Welcome,{user_name}!")
+st.write(f"You are{age} years old and your favorite color is {favorite_color}.")
+st.subheader("Here's some random data:")
+data=pd.DataFrame(
+    np.random.randn(10,5),
+    columns=('col %d'% i for i in range(5))
+)
 
-number = st.slider("Pick a number", 0, 100, 25)
+st.dataframe(data)
 
-st.subheader("Result")
+if st.checkbox("Show raw Data"):
+   st.subheader("Raw Data")
+   st.write(data)
 
-squared_number = number * number
-
-st.write(f"The square of **{number}** is **{squared_number}**.")
+if st.button("Say hello"):
+    st.write("hello there!")
+else:
+    st.write("GoodBye")
